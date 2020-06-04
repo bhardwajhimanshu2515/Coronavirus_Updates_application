@@ -100,6 +100,7 @@ body {
 .data {
     margin-top: 10px;
     margin-bottom: 8px;
+    font-weight: lighter;
 }
 .titles{
     font-size:30px;
