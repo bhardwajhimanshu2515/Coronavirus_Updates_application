@@ -60,8 +60,8 @@
             });
         });
         function renderlist(){
-                        let confirmedCases =data.locations[0].latest.confirmed ;
-                        let deaths = data.locations[0].latest.deaths;
+                        let confirmedCases =data.latest.confirmed ;
+                        let deaths = data.latest.deaths;
                         let deathpercent=((Number(deaths) / Number(confirmedCases)) * 100).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
                             var res="";
                             for(var i=0;i<1;i++){
@@ -82,11 +82,11 @@
         <div id="c2">\
             <div>\
                 <div class="titles">Cases</div>\
-                <div id="cases" class="data">'+data.locations[0].latest.confirmed+'</div>\
+                <div id="cases" class="data">'+data.latest.confirmed+'</div>\
             </div>\
             <div>\
                 <div class="titles">Deaths</div>\
-                <div id="deaths" class="data">'+data.locations[0].latest.deaths+'</div>\
+                <div id="deaths" class="data">'+data.latest.deaths+'</div>\
             </div>\
             <div>\
                 <div class="titles">% of Deaths</div>\
