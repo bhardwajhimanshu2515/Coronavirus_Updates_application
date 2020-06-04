@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Covid-19</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"href="cssforindex.css">
+</head>
+
+<body>
+    <div id="navbar">
+        <div id="logo">
+            Covid-19 Live Cases
+        </div>
+    </div>
+    <div id="container">
+        <form>
+            <div id="searchform">
+                <input type="text" id="searchbox" placeholder="Country Name" class="textboxes">
+                <button id="submit" class="textboxes">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div id="output">
+
+    </div>
+    <div id="bottom">
+        <div id="left">
+            All rights are reserved by TYP.
+        </div>
+        <div id="right">
+            <a id="a1" href="https://www.linkedin.com/in/pythondeveloper01/" class="fa fa-linkedin"></a><a id="a2"
+                href="https://www.linkedin.com/in/pythondeveloper01/" class="fa fa-github"></a><a id="a3"
+                href="https://www.linkedin.com/in/pythondeveloper01/" class="fa fa-twitter"></a><a id="a4"
+                href="https://www.linkedin.com/in/pythondeveloper01/" class="fa fa-instagram"></a>
+        </div>
+    </div>
+    <script>
+        var serachele = document.getElementById('searchbox');
+        var submitbutton = document.getElementById('submit');
+        var data=[];
+        var output=document.getElementById('output');
+        submitbutton.addEventListener('click', function (e) {
+            e.preventDefault();
+            var search = serachele.value;
+            var rawurl = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations?country=' + search;
+            var url = rawurl;
+            var promisedresponse = fetch(url);
+            promisedresponse.then(response => {
+                if (response.status == 200) {
+                    var promiseddata = response.json();
+                    promiseddata.then(apidata => {
+                        var datafromserver = apidata;
+                        data=datafromserver;
+                        console.log(data);
+                                         
+                        renderlist();
+                    });
+                }
+            });
+        });
+        function renderlist(){
+                        let confirmedCases =data.locations[0].latest.confirmed ;
+                        let deaths = data.locations[0].latest.deaths;
+                        let deathpercent=((Number(deaths) / Number(confirmedCases)) * 100).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
+                            var res="";
+                            for(var i=0;i<1;i++){
+                                var html='<div id="c1">\
+            <div>\
+                <div class="titles">Country</div>\
+                <div id="country" class="data">'+serachele.value+'</div>\
+            </div>\
+            <div>\
+                <div class="titles">Population</div>\
+                <div id="population" class="data">'+data.locations[0].country_population+'</div>\
+            </div>\
+            <div>\
+                <div class="titles">Last Updated</div>\
+                <div id="lastupdated" class="data">'+data.locations[0].last_updated+'</div>\
+            </div>\
+        </div>\
+        <div id="c2">\
+            <div>\
+                <div class="titles">Cases</div>\
+                <div id="cases" class="data">'+data.locations[0].latest.confirmed+'</div>\
+            </div>\
+            <div>\
+                <div class="titles">Deaths</div>\
+                <div id="deaths" class="data">'+data.locations[0].latest.deaths+'</div>\
+            </div>\
+            <div>\
+                <div class="titles">% of Deaths</div>\
+                <div id="deathpercent" class="data">'+deathpercent+'</div>\
+            </div>\
+        </div>';
+        res+=html;
+            }
+        output.innerHTML=res;
+                };
+    </script>
+</body>
+
+</html>
