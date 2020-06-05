@@ -56,7 +56,7 @@
 
             var res = "";
             for (var i = 0; i < data.Countries.length; i++) {
-                if (data.Countries[i].Country == serachele.value) {
+                if (data.Countries[i].Country == serachele.value || data.Countries[i].Slug == serachele.value) {
                     var newconfimed = data.Countries[i].NewConfirmed;
                     var totalconfimed = data.Countries[i].TotalConfirmed;
                     var newdeaths = data.Countries[i].NewDeaths;
