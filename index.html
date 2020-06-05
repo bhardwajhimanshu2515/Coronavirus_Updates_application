@@ -57,6 +57,7 @@
             var res = "";
             for (var i = 0; i < data.Countries.length; i++) {
                 if (data.Countries[i].Country == serachele.value || data.Countries[i].Slug == serachele.value) {
+                    var name=data.Countries[i].Country;
                     var newconfimed = data.Countries[i].NewConfirmed;
                     var totalconfimed = data.Countries[i].TotalConfirmed;
                     var newdeaths = data.Countries[i].NewDeaths;
@@ -72,7 +73,7 @@
     <div id="c1">\
     <div>\
     <div class="titles">Country</div>\
-    <div id="country" class="data">'+ serachele.value + '</div>\
+    <div id="country" class="data">'+ name + '</div>\
     </div>\
     <div>\
     <div class="titles">New Confirmed</div>\
