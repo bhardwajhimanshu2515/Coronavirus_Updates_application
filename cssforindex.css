@@ -99,12 +99,14 @@ body {
 
 .data {
     margin-top: 10px;
-    margin-bottom: 8px;
+    margin-bottom:20px;
     font-weight: lighter;
+    border-bottom: 1px solid white;
 }
 .titles{
-    font-size:30px;
-    font-weight: 700;
+    font-size:20px;
+    font-weight:700;
+   
 }
 @media only screen and (max-width:1024px){
     #navbar,#bottom{
@@ -154,7 +156,8 @@ body {
         margin:20px 2.5%;
     }
     .titles{
-        font-size:20px;
+        font-size:15px;
+        font-weight:350;
     }
     .data{
         font-size:6px;
@@ -192,9 +195,17 @@ body {
     #searchform{
         width:310px;
     }
+    .titles{
+        font-size:15px;
+        font-weight:350;
+    }
 }
 @media only screen and (max-width:360px){
     #searchform{
         width:310px;
+    }
+    .titles{
+        font-size:15px;
+        font-weight:350;
     }
 }

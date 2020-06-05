@@ -4,7 +4,7 @@
 <head>
     <title>Covid-19</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet"href="cssforindex.css">
+    <link rel="stylesheet" href="cssforindex.css">
 </head>
 
 <body>
@@ -32,12 +32,12 @@
     <script>
         var serachele = document.getElementById('searchbox');
         var submitbutton = document.getElementById('submit');
-        var data=[];
-        var output=document.getElementById('output');
+        var data = [];
+        var output = document.getElementById('output');
         submitbutton.addEventListener('click', function (e) {
             e.preventDefault();
             var search = serachele.value;
-            var rawurl = 'https://coronavirus-tracker-api.herokuapp.com/v2/locations?country=' + search;
+            var rawurl = 'https://api.covid19api.com/summary';
             var url = rawurl;
             var promisedresponse = fetch(url);
             promisedresponse.then(response => {
@@ -45,50 +45,70 @@
                     var promiseddata = response.json();
                     promiseddata.then(apidata => {
                         var datafromserver = apidata;
-                        data=datafromserver;
+                        data = datafromserver;
                         renderlist();
                     });
                 }
             });
         });
-        function renderlist(){
-                        let confirmedCases =data.latest.confirmed ;
-                        let deaths = data.latest.deaths;
-                        let deathpercent=((Number(deaths) / Number(confirmedCases)) * 100).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
-                            var res="";
-                            for(var i=0;i<1;i++){
-                                var html='<div id="c1">\
-            <div>\
-                <div class="titles">Country</div>\
-                <div id="country" class="data">'+serachele.value+'</div>\
-            </div>\
-            <div>\
-                <div class="titles">Population</div>\
-                <div id="population" class="data">'+data.locations[0].country_population+'</div>\
-            </div>\
-            <div>\
-                <div class="titles">Last Updated</div>\
-                <div id="lastupdated" class="data">'+data.locations[0].last_updated+'</div>\
-            </div>\
-        </div>\
-        <div id="c2">\
-            <div>\
-                <div class="titles">Cases</div>\
-                <div id="cases" class="data">'+data.latest.confirmed+'</div>\
-            </div>\
-            <div>\
-                <div class="titles">Deaths</div>\
-                <div id="deaths" class="data">'+data.latest.deaths+'</div>\
-            </div>\
-            <div>\
-                <div class="titles">% of Deaths</div>\
-                <div id="deathpercent" class="data">'+deathpercent+'</div>\
-            </div>\
-        </div>';
-        res+=html;
+        function renderlist() {
+
+
+            var res = "";
+            for (var i = 0; i < data.Countries.length; i++) {
+                if (data.Countries[i].Country == serachele.value) {
+                    var newconfimed = data.Countries[i].NewConfirmed;
+                    var totalconfimed = data.Countries[i].TotalConfirmed;
+                    var newdeaths = data.Countries[i].NewDeaths;
+                    var totaldeaths = data.Countries[i].TotalDeaths;
+                    var newrecovered = data.Countries[i].NewRecovered;
+                    var totalrecovered = data.Countries[i].TotalRecovered;
+                    var date = data.Countries[i].Date;
+                    var deathpercent = ((Number(totaldeaths) / Number(totalconfimed)) * 100).toLocaleString("en", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + "%";
+                }
             }
-        output.innerHTML=res;
-                };
+            for (var i = 0; i < 1; i++) {
+                var html = '\
+    <div id="c1">\
+    <div>\
+    <div class="titles">Country</div>\
+    <div id="country" class="data">'+ serachele.value + '</div>\
+    </div>\
+    <div>\
+    <div class="titles">New Confirmed</div>\
+    <div id="country" class="data">'+ newconfimed + '</div>\
+    </div>\
+    <div>\
+    <div class="titles">Total Confirmed</div>\
+    <div id="country" class="data">'+ totalconfimed + '</div>\
+    </div>\
+    <div>\
+    <div class="titles">Date</div>\
+    <div id="country" class="data">'+ date + '</div>\
+    </div>\
+    </div>\
+    <div id="c2">\
+    <div>\
+    <div class="titles">New Deaths</div>\
+    <div id="country" class="data">'+ newdeaths + '</div>\
+    </div>\
+    <div>\
+    <div class="titles">Total Deaths</div>\
+    <div id="country" class="data">'+ totaldeaths + '</div>\
+    </div>\
+    <div>\
+    <div class="titles">New Recovered</div>\
+    <div id="country" class="data">'+ newrecovered + '</div>\
+    </div>\
+    <div>\
+    <div class="titles">Total Recovered</div>\
+    <div id="country" class="data">'+ totalrecovered + '</div>\
+    </div>\
+    </div>';
+                res += html;
+            }
+            output.innerHTML = res;
+        };
     </script>
 </body>
 
